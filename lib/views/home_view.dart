@@ -3,9 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app1/bloc/news_bloc.dart';
 import 'package:news_app1/bloc/news_event.dart';
 import 'package:news_app1/bloc/news_state.dart';
+import 'package:news_app1/screens/weather_screen.dart';
 import 'package:news_app1/views/error.dart';
 import 'package:news_app1/views/list.dart';
 import 'package:news_app1/views/loading.dart';
+import 'package:news_app1/models/networking.dart';
+import 'package:news_app1/screens/loading_screen.dart';
+LoadingScreen loadingScreen = LoadingScreen();
 
 class HomeView extends StatefulWidget {
 
@@ -34,13 +38,37 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: const Color(0xFF464646),
       appBar: AppBar(
         backgroundColor: const Color(0xFF000000),
-        title: const Text(
-          " HEADLINES",
-          style: TextStyle(
-              fontSize: 29,
-              letterSpacing: 2.0,
-              color: Color(0xFF464646),
-              fontWeight: FontWeight.bold),
+        title:  Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Text(
+                " HEADLINES",
+                style: TextStyle(
+                    fontSize: 29,
+                    letterSpacing: 2.0,
+                    color: Color(0xFF464646),
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(
+                flex:1,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
+              child: Icon(Icons.cloud,
+              color: Colors.white,
+              ),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return WeatherScreen(null);
+                }));
+              },
+            )
+            )
+          ],
         ),
         centerTitle: true,
       ),
