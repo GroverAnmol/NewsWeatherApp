@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app1/constants.dart';
+import 'package:news_app1/constant.dart';
 
 String? cityName;
 

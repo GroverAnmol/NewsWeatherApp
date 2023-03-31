@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app1/models/weather.dart';
-import 'package:news_app1/constants.dart';
+import 'package:news_app1/constant.dart';
 import 'package:news_app1/screens/city_screen.dart';
+import 'package:news_app1/views/home_view.dart';
 
 class WeatherScreen extends StatefulWidget {
   WeatherScreen(this.locationWeather);
@@ -56,10 +57,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -75,49 +74,45 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      '$temperature°',
-                      style: kTempTextStyle,
-                    ),
-                    Text(
-                      '$weatherIcon',
-                      style: kConditionTextStyle,
-                    ),
-                  ],
-                ),
-              ),
               Row(
                 children: [
+                  Text(
+                    '$temperature°',
+                    style: kTempTextStyle,
+                  ),
+                  Text(
+                    '$weatherIcon',
+                    style: kConditionTextStyle,
+                  ),
                   Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 15.0),
-                      child: Text(
-                        "$weatherMessage in $cityName!",
-                        textAlign: TextAlign.right,
-                        style: kMessageTextStyle,
-                      ),
+                    child: Text(
+                      "$weatherMessage in $cityName!",
+                      textAlign: TextAlign.center,
+                      style: kMessageTextStyle,
                     ),
                   ),
-                  FloatingActionButton(
-                    onPressed:()async{
-      var typedName = await Navigator.push(context, MaterialPageRoute(builder: (context){
-        return CityScreen();
-      }));
-      var cityName = this.cityName;
-      if(cityName != null){
-        var weatherData = await weatherModel.getCityWeather(typedName);
-        updateUI(weatherData);
-      }
-    },
-                    child: Icon(Icons.search),
-                    backgroundColor: Colors.grey,
-                  )
                 ],
               ),
+              Padding(
+                padding:  EdgeInsets.all(20.0),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                    onPressed:()async{
+                      var typedName = await Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return CityScreen();
+                      }));
+                      var cityName = this.cityName;
+                      if(cityName != null){
+                        var weatherData = await weatherModel.getCityWeather(typedName);
+                        updateUI(weatherData);
+                      }
+                    },
+                    child: Icon(Icons.search),
+                    backgroundColor: Colors.grey,
+                  ),
+                ),
+              )
             ],
           ),
         ),

@@ -14,7 +14,7 @@ class WeatherModel {
     var longitude = location.longitude;
     var latitude = location.latitude;
     WeatherNetwork networkHelper = WeatherNetwork(
-        '${urlLink}lat=$latitude&lon=$longitude&appid=$appID&units=metric');
+        '${urlLink}?lat=$latitude&lon=$longitude&appid=$appID&units=metric');
 
     var weatherData = await networkHelper.getWeather();
     return weatherData;
