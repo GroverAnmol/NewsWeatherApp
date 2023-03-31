@@ -63,7 +63,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return WeatherScreen(null);
+                  return LoadingScreen();
                 }));
               },
             )
