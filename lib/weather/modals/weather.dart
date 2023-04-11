@@ -1,10 +1,13 @@
-import 'package:news_app1/models/networking.dart';
-import 'package:news_app1/models/location.dart';
+import 'package:news_app1/weather/modals/networking.dart';
+import 'package:news_app1/weather/modals/location.dart';
+const appID = '1fe61498474bf7dd1da0c6518f2d73c8';
+const urlLink = 'https://api.openweathermap.org/data/2.5/weather';
+
 class WeatherModel {
 
   Future<dynamic> getCityWeather(String cityName)async{
-    WeatherNetwork weatherNetwork = await WeatherNetwork('$urlLink?q=$cityName&appid=$appID&units=metric');
-    var weatherData = weatherNetwork.getWeather();
+    WeatherNetwork networkHelper = await WeatherNetwork('$urlLink?q=$cityName&appid=$appID&units=metric');
+    var weatherData = networkHelper.getData();
     return weatherData;
   }
 
@@ -16,7 +19,7 @@ class WeatherModel {
     WeatherNetwork networkHelper = WeatherNetwork(
         '${urlLink}?lat=$latitude&lon=$longitude&appid=$appID&units=metric');
 
-    var weatherData = await networkHelper.getWeather();
+    var weatherData = await networkHelper.getData();
     return weatherData;
   }
 
