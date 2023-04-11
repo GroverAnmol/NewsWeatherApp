@@ -29,3 +29,6 @@ const kTextInputDecoration =  InputDecoration(
         color: Colors.grey
     )
 );
+const kDateTextStyle=TextStyle(
+  fontSize: 14,
+);

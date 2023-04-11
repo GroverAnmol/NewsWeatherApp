@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app1/constant.dart';
+import 'package:news_app1/weather/constant.dart';
 
 String? cityName;
 
@@ -28,12 +28,9 @@ class _CityScreenState extends State<CityScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
-                  },style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey,
-                ),
+                  },
                   child: Icon(
                     Icons.arrow_back_ios,
-                    color: Colors.black,
                     size: 50.0,
                   ),
                 ),
@@ -51,9 +48,6 @@ class _CityScreenState extends State<CityScreen> {
                 ),
               ),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey,
-                  ),
                 onPressed: () {
                   Navigator.pop(context,cityName);
                 },

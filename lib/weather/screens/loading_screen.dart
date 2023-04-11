@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app1/screens/weather_screen.dart';
+import 'package:news_app1/weather/screens/weather_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:news_app1/models/weather.dart';
+import 'package:news_app1/weather/modals/weather.dart';
 class LoadingScreen extends StatefulWidget {
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
@@ -25,9 +25,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
     WeatherModel weatherModel =WeatherModel();
     var weatherData = await weatherModel.getWeatherLocation();
 
-    // ignore: use_build_context_synchronously
     Navigator.push(context, MaterialPageRoute(builder: (context){
-      return WeatherScreen(weatherData);
+      return WeatherScreen(
+        locationWeather: weatherData,
+      );
     }));
   }
 

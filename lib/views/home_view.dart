@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app1/bloc/news_bloc.dart';
 import 'package:news_app1/bloc/news_event.dart';
 import 'package:news_app1/bloc/news_state.dart';
-import 'package:news_app1/screens/weather_screen.dart';
+import 'package:news_app1/weather/screens/weather_screen.dart';
 import 'package:news_app1/views/error.dart';
 import 'package:news_app1/views/list.dart';
 import 'package:news_app1/views/loading.dart';
-import 'package:news_app1/models/networking.dart';
-import 'package:news_app1/screens/loading_screen.dart';
+import 'package:news_app1/weather/modals/networking.dart';
+import 'package:news_app1/weather/screens/loading_screen.dart';
 LoadingScreen loadingScreen = LoadingScreen();
 
 class HomeView extends StatefulWidget {
@@ -41,9 +41,9 @@ class _HomeViewState extends State<HomeView> {
         title:  Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(
+            const Expanded(
               flex: 4,
-              child: Text(
+              child: const Text(
                 " HEADLINES",
                 style: TextStyle(
                     fontSize: 29,
@@ -81,7 +81,6 @@ class _HomeViewState extends State<HomeView> {
             return buildHintsList(state.articles);
           } else if (state is NewsErrorState) {
             return buildError(state.message);
-
           }
           else return buildLoading();
         }),
