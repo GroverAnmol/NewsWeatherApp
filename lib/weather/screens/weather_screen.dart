@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:news_app1/weather/modals/weather.dart';
 import 'package:news_app1/weather/constant.dart';
 import 'package:news_app1/weather/screens/city_screen.dart';
-import 'package:news_app1/updated_weather/screen/weather_screen.dart' as up;
+import 'package:news_app1/views/home_view.dart';
+import 'package:news_app1/updated_weather/screen/updated_weather_screen.dart' as ws;
+import 'package:get/get.dart';
 
 class WeatherScreen extends StatefulWidget {
-  WeatherScreen({this.locationWeather});
+  WeatherScreen(this.locationWeather);
   final locationWeather;
+
   @override
-  _WeatherScreenState createState() => _WeatherScreenState();
+  State<WeatherScreen> createState() => _WeatherScreenState();
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
   WeatherModel weatherModel = WeatherModel();
-
   var temperature;
   String? weatherIcon;
   String? weatherMessage;
@@ -56,17 +58,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
         constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black
+                      backgroundColor: Colors.grey
                     ),
-                    onPressed: () async {
-                      var weatherData = await weatherModel.getWeatherLocation();
-                      updateUI(weatherData);
+                    onPressed: ()  {
+                      Navigator.pop(context);
                     },
                     child: Icon(
                       Icons.near_me,
@@ -74,23 +76,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     ),
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black
-                    ),
-                    onPressed: () async {
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return up.WeatherScreen();
-                      }));
-                    },
-                    child: Icon(
-                      Icons.cloud,
-                      size: 50.0,
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black
-                    ),
                     onPressed: () async {
                       var typedName = await Navigator.push(context, MaterialPageRoute(builder: (context){
                         return CityScreen();
@@ -105,28 +90,59 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       size: 50.0,
                     ),
                   ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey
+                    ),
+                    onPressed: ()  {
+                      Get.to(ws.WeatherScreen());
+                    },
+                    child: Icon(
+                      Icons.near_me,
+                      size: 50.0,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    '$temperature°',
+                    style: kTempTextStyle,
+                  ),
+                  Text(
+                    '$weatherIcon',
+                    style: kConditionTextStyle,
+                  ),
+                  Expanded(
+                    child: Text(
+                      "$weatherMessage in $cityName!",
+                      textAlign: TextAlign.center,
+                      style: kMessageTextStyle,
+                    ),
+                  ),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      '$temperature°',
-                      style: kTempTextStyle,
-                    ),
-                    Text(
-                      '$weatherIcon',
-                      style: kConditionTextStyle,
-                    ),
-                    Text(
-                      "$weatherMessage in $cityName!",
-                      textAlign: TextAlign.right,
-                      style: kMessageTextStyle,
-                    ),
-                  ],
+                padding:  EdgeInsets.all(20.0),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                    onPressed:()async{
+                      var typedName = await Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return CityScreen();
+                      }));
+                      var cityName = this.cityName;
+                      if(cityName != null){
+                        var weatherData = await weatherModel.getCityWeather(typedName);
+                        updateUI(weatherData);
+                      }
+                    },
+                    child: Icon(Icons.search),
+                    backgroundColor: Colors.grey,
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),
