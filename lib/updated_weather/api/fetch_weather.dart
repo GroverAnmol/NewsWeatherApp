@@ -13,7 +13,7 @@ class FetchWeatherAPI{
   Future<WeatherInfo> processData(latitude,longitude)async{
     Response response = await get(Uri.parse(apiUrl(latitude, longitude)));
     var jsonString = jsonDecode(response.body);
-    weatherInfo = WeatherInfo(WeatherDailyDetails.fromJson(jsonString),WeatherHourlyDetails.fromJson(jsonString) , WeatherCurrentDetails.fromJson(jsonString));
+    weatherInfo = WeatherInfo(daily: WeatherDailyDetails.fromJson(jsonString),hourly: WeatherHourlyDetails.fromJson(jsonString) ,current: WeatherCurrentDetails.fromJson(jsonString));
     return weatherInfo!;
   }
 }

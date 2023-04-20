@@ -99,7 +99,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     },
                     child: Icon(
                       Icons.near_me,
-                      size: 50.0,
+                      size: 51.0,
                     ),
                   )
                 ],

@@ -13,7 +13,7 @@ class Globalcontroller extends GetxController{
   RxDouble getLatitude() => _latitude;
   RxDouble getLongitude() => _longitude;
 
-  final weatherInfo = WeatherInfo(null,null,null).obs;
+  final weatherInfo = WeatherInfo().obs;
   WeatherInfo getInfo(){
     return weatherInfo.value;
   }
@@ -42,7 +42,7 @@ class Globalcontroller extends GetxController{
       return Future.error('Location permission denied forever');
     }
     else if(locationPermission == LocationPermission.denied) {
-      locationPermission = await Geolocator.checkPermission();
+      locationPermission = await Geolocator.requestPermission();
       if(locationPermission == LocationPermission.denied) {
         return Future.error('Location permission denied ');
       }
@@ -51,8 +51,8 @@ class Globalcontroller extends GetxController{
         .then((value) {
       _longitude.value = value.longitude;
       _latitude.value = value.latitude;
+      _isLoading.value = false;
       return FetchWeatherAPI().processData(value.latitude,value.longitude).then((value) {
-        _isLoading.value = false;
         weatherInfo.value = value;
       });
     });

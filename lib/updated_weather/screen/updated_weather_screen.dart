@@ -29,9 +29,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 SizedBox(
                   height: 20,
                 ),
+                CurrentWeather(weatherCurrentDetails: globalcontroller.getInfo().getCurrentDetails()),
                 SizedBox(
                   height: 20,
                 ),
+                DailyDetailsForecast(weatherDailyDetails: globalcontroller.getInfo().getDailyDetails())
+                ,SizedBox(
+                  height: 20,
+                ),
+                HourlyDetailsWidget(weatherHourlyDetails: globalcontroller.getInfo().getHourlyDetails())
               ],
             ),
           ),

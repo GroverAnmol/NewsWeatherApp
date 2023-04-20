@@ -10,7 +10,7 @@ class WeatherInfo{
   final WeatherDailyDetails? daily;
   final WeatherCurrentDetails? current;
 
-  WeatherInfo(@required this.daily,@required this.hourly,@required this.current);
+  WeatherInfo({this.daily, this.hourly, this.current});
 
   WeatherHourlyDetails getHourlyDetails()=> hourly!;
   WeatherDailyDetails getDailyDetails() =>daily!;
