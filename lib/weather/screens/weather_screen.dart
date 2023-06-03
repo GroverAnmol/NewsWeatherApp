@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app1/weather/modals/weather.dart';
 import 'package:news_app1/weather/constant.dart';
 import 'package:news_app1/weather/screens/city_screen.dart';
-import 'package:news_app1/views/home_view.dart';
-import 'package:news_app1/updated_weather/screen/updated_weather_screen.dart' as ws;
+import 'package:news_app1/updated_weather/screen/updated_weather_screen.dart';
 import 'package:get/get.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -95,7 +94,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         backgroundColor: Colors.grey
                     ),
                     onPressed: ()  {
-                      Get.to(ws.WeatherScreen());
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return UpdatedWeatherScreen();
+                      }));
                     },
                     child: Icon(
                       Icons.near_me,

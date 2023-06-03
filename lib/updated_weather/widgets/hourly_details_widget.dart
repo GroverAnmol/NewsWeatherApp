@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app1/updated_weather/modals/weather_details_hourly.dart';
-
-
-class CustomColors {
-  static const Color firstGradientColor = Color(0xFF00FF00);
-  static const Color secondGradientColor = Color(0xFF0000FF);
-}
-
+import 'package:news_app1/updated_weather/api/custom_colors.dart';
+import 'package:news_app1/updated_weather/controller/global_controller.dart';
 
 class HourlyDetailsWidget extends StatelessWidget {
   final WeatherHourlyDetails weatherHourlyDetails;
-  const HourlyDetailsWidget({Key? key,required this.weatherHourlyDetails}) : super(key: key);
+   HourlyDetailsWidget({Key? key,required this.weatherHourlyDetails}) : super(key: key);
+  RxInt cardIndex = Globalcontroller().getIndex();
 
   @override
   Widget build(BuildContext context) {
@@ -33,29 +29,34 @@ class HourlyDetailsWidget extends StatelessWidget {
 
   Widget hourlyList(){
     return Container(
-      height: 150.0,
-      padding: EdgeInsets.only(top: 10 ,bottom: 10),
-      child: ListView.builder(
-          itemBuilder:(context , index){
-            return Obx(() =>GestureDetector(child: Container(
-              margin: EdgeInsets.only(left:20, right:5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(offset: Offset(0.5,0),spreadRadius: 1,blurRadius: 30,color: Colors.grey)
-                    ],
-                    gradient:  LinearGradient(colors:
-                    [CustomColors.firstGradientColor,
-                      CustomColors.secondGradientColor])
-                  ),
-                  child: HourlyDetails(
-                    temp: weatherHourlyDetails.hourly[index].temp!,
-                    timeStamp: weatherHourlyDetails.hourly[index].dt!,
-                    weatherIcon: weatherHourlyDetails.hourly[index].weather![0].icon!,
-                  ),
-                )));
-          },
-          itemCount: weatherHourlyDetails.hourly.length>12?12:weatherHourlyDetails.hourly.length),
+        height: 150.0,
+        padding: EdgeInsets.only(top: 10 ,bottom: 10),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+            itemBuilder:(context , index){
+              return Obx(() => GestureDetector(onTap:(){
+                cardIndex.value= index;
+              },child: Container(
+                width: 80.0,
+                margin: const EdgeInsets.only(left:20, right:5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                       BoxShadow(offset: Offset(0.5,0),spreadRadius: 1,blurRadius: 30,color: Colors.grey)
+                      ],
+                      gradient:  cardIndex.value == index ? LinearGradient(colors:
+                      [CustomColors.firstGradientColor,
+                        CustomColors.secondGradientColor]): null
+                    ),
+                    child: HourlyDetails(
+                      temp: weatherHourlyDetails.hourly[index].temp!,
+                      timeStamp: weatherHourlyDetails.hourly[index].dt!,
+                      weatherIcon: weatherHourlyDetails.hourly[index].weather![0].icon!,
+                    ),
+                  )));
+            },
+            itemCount: weatherHourlyDetails.hourly.length>12?12:weatherHourlyDetails.hourly.length),
+
     );
   }
 }
@@ -77,17 +78,12 @@ class HourlyDetails extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           child: Text(getTime(timeStamp),style: TextStyle(
-
           ),),
         ),
         Container(
-          margin: EdgeInsets.all(5),
-          child: Image.asset('name',height: 40,width: 40,),
-        ),
-        Container(
-          margin: EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           child: Text('$temp°'),
         )
       ],

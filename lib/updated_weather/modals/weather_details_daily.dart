@@ -2,7 +2,7 @@ class WeatherDailyDetails{
   List <Daily> daily;
   WeatherDailyDetails({required this.daily});
   factory WeatherDailyDetails.fromJson(Map<String,dynamic>json)=>
-      WeatherDailyDetails(daily: List<Daily>.from(json['daily'].map((e)=>Daily.fromJson(e))));
+      WeatherDailyDetails(daily: List<Daily>.from( json['daily'].map((data) => Daily.fromJson(data))));
 }
 class Daily {
   Daily({

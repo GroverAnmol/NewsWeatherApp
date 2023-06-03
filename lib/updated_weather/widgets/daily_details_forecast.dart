@@ -32,7 +32,8 @@ class DailyDetailsForecast extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 17.0,
                 ),)
-          )
+          ),
+          dailyList()
         ],
       ),
     );
@@ -45,7 +46,10 @@ class DailyDetailsForecast extends StatelessWidget {
             itemBuilder: (context,index){
           return Column(
             children: <Widget>[
-              Container(height:60,
+              Container(height:60,decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(12.0)
+              ),
                   padding: EdgeInsets.only(left: 10,right: 10),
                   child: Row(
                     children: <Widget>[
@@ -53,7 +57,7 @@ class DailyDetailsForecast extends StatelessWidget {
                         width: 80,
                           child: Text(getDay(weatherDailyDetails.daily[index].dt),
                           style: TextStyle(
-                            color: Colors.grey[200],
+                            color: Colors.grey[900],
                           ),),
                       ),
                       SizedBox(

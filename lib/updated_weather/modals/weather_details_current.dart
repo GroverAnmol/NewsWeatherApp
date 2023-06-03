@@ -2,7 +2,7 @@ class WeatherCurrentDetails{
   final Current current;
   WeatherCurrentDetails({required this.current});
   factory WeatherCurrentDetails.fromJson(Map<String,dynamic>json)=>
-      WeatherCurrentDetails(current: Current.fromJson(json['current'].map((e)=>Current.fromJson(e))));
+      WeatherCurrentDetails(current: Current.fromJson(json['current']));
 }
 
 class Current {
@@ -39,11 +39,11 @@ class Weather {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['main'] = main;
-    _data['description'] = description;
-    _data['icon'] = icon;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['main'] = main;
+    data['description'] = description;
+    data['icon'] = icon;
+    return data;
   }
 }
