@@ -1,4 +1,8 @@
+
+
 const appId = '898275018cfdd084b7f0cebc0ddc6af8';
+double? lat;
+double? long;
 
 String apiUrl(double latitude,double longitude) {
   String url;

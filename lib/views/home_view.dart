@@ -9,6 +9,8 @@ import 'package:news_app1/views/list.dart';
 import 'package:news_app1/views/loading.dart';
 import 'package:news_app1/weather/modals/networking.dart';
 import 'package:news_app1/weather/screens/loading_screen.dart';
+
+import '../updated_weather/screen/updated_weather_screen.dart';
 LoadingScreen loadingScreen = LoadingScreen();
 
 class HomeView extends StatefulWidget {
@@ -63,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return LoadingScreen();
+                  return UpdatedWeatherScreen();
                 }));
               },
             )

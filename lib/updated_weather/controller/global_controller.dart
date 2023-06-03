@@ -39,7 +39,7 @@ class Globalcontroller extends GetxController{
       return Future.error('Location not enabled');
     }
 
-   locationPermission = await Geolocator.checkPermission();
+    locationPermission = await Geolocator.checkPermission();
     if(locationPermission == LocationPermission.deniedForever){
       return Future.error('Location permission denied forever');
     }
@@ -50,19 +50,19 @@ class Globalcontroller extends GetxController{
       }
     }
 
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best,
-      );
-      _longitude.value = position.longitude;
-      _latitude.value = position.latitude;
+    final position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.best,
+    );
+    _longitude.value = position.longitude;
+    _latitude.value = position.latitude;
 
-      final weatherData = await FetchWeatherAPI().processData(
-        position.latitude,
-        position.longitude,
-      );
+    final weatherData = await FetchWeatherAPI().processData(
+      position.latitude,
+      position.longitude,
+    );
 
-      weatherInfo.value = weatherData;
-      _isLoading.value = false;
+    weatherInfo.value = weatherData;
+    _isLoading.value = false;
 
   }
   RxInt getIndex() {

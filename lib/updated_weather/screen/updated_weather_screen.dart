@@ -7,7 +7,8 @@ import 'package:news_app1/updated_weather/widgets/hourly_details_widget.dart';
 import 'package:news_app1/updated_weather/widgets/daily_details_forecast.dart';
 
 class UpdatedWeatherScreen extends StatefulWidget {
-  const UpdatedWeatherScreen({Key? key}) : super(key: key);
+  final locationWeather;
+ const UpdatedWeatherScreen({ this.locationWeather});
 
   @override
   State<UpdatedWeatherScreen> createState() => _UpdatedWeatherScreenState();
@@ -15,10 +16,17 @@ class UpdatedWeatherScreen extends StatefulWidget {
 
 class _UpdatedWeatherScreenState extends State<UpdatedWeatherScreen> {
   final globalcontroller = Get.put(Globalcontroller(),permanent: true);
-
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+         title: Row(
+           children: [
+            const Text("Weather"),
+           ],
+         ),
+      ),
       body: SafeArea(
         child: Obx(()=>globalcontroller.checkLoading().isTrue?Center(
           child: CircularProgressIndicator(),

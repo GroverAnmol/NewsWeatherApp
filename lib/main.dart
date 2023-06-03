@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'main_screen.dart';
+import 'package:news_app1/services/news_repo.dart';
+import 'package:news_app1/views/home_view.dart';
+import 'bloc/news_bloc.dart';
 
 void main() {
   runApp(const App());
@@ -16,7 +19,9 @@ class App extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData(),
       themeMode: ThemeMode.system,
-      home:MainScreen(),
+      home:  BlocProvider(
+          create: (context) => NewsBloc(webService: NewsWebServiceImpl()),
+          child: HomeView()),
     );
   }
 }
